@@ -5,15 +5,26 @@ import Timer from "../components/Timer";
 import IAssingment from "../types/IAssingment";
 import style from "./app.module.scss";
 
-
-
 function App() {
-  const [assingments, setAssignments] = useState<IAssingment[]>([]);
+  const [assignments, setAssignments] = useState<IAssingment[]>([]);
+  const [selected, setSelected] = useState<IAssingment>();
 
+  function getSelectedAssignment(selectedAssignment: IAssingment) {
+    setSelected(selectedAssignment);
+    setAssignments((items) =>
+      items.map((item) => ({
+        ...item,
+        selected: item.id === selectedAssignment.id ? true : false,
+      }))
+    );
+  }
   return (
     <div className={style.appStyle}>
       <Form setAssignments={setAssignments} />
-      <List assingments={assingments} />
+      <List
+        assignments={assignments}
+        getSelectedAssignment={getSelectedAssignment}
+      />
       <Timer />
     </div>
   );

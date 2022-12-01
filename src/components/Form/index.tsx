@@ -2,7 +2,7 @@ import { useState } from "react";
 import IAssingment from "../../types/IAssingment";
 import Button from "../Button";
 import style from "./form.module.scss";
-import {v4}from 'uuid';
+import { v4 } from "uuid";
 
 interface Props {
   setAssignments: React.Dispatch<React.SetStateAction<IAssingment[]>>;
@@ -18,7 +18,7 @@ export default function Form({ setAssignments }: Props) {
       ...assingments,
       {
         id: v4(),
-        assingment: title,
+        assignment: title,
         duration: time,
         completed: false,
         selected: false,
@@ -58,8 +58,6 @@ export default function Form({ setAssignments }: Props) {
           name="duration"
           id="duration"
           step="1"
-          min="00:00:00"
-          max="01:30:00"
           onChange={(event) => {
             setTime(event.target.value);
           }}

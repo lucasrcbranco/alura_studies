@@ -1,16 +1,27 @@
+import IAssignment from "../../../types/IAssingment";
 import style from "../list.module.scss";
 
-export default function ListItem({
-  assingment,
-  duration,
-}: {
-  assingment: string;
-  duration: string;
-}) {
+interface Props {
+  item: IAssignment;
+  getSelectedAssignment: (selectedAssignment: IAssignment) => void;
+}
+
+export default function ListItem({ item, getSelectedAssignment }: Props) {
   return (
-    <li className={style.item}>
-      <h3>{assingment}</h3>
-      <span>{duration}</span>
+    <li
+      className={`${style.item} ${item.selected ? style.itemSelecionado : null}`}
+      onClick={() => {
+        getSelectedAssignment({
+          id: item.id,
+          assignment: item.assignment,
+          duration: item.duration,
+          completed: item.completed,
+          selected: true,
+        });
+      }}
+    >
+      <h3>{item.assignment}</h3>
+      <span>{item.duration}</span>
     </li>
   );
 }

@@ -1,14 +1,24 @@
-import IAssingment from "../../types/IAssingment";
+import IAssignment from "../../types/IAssingment";
 import ListItem from "./Item";
 import style from "./list.module.scss";
 
-export default function List({ assingments }: { assingments: IAssingment[] }) {
+interface Props {
+  assignments: IAssignment[];
+  getSelectedAssignment: (selectedAssignment: IAssignment) => void;
+}
+
+export default function List({ assignments, getSelectedAssignment }: Props) {
   return (
     <aside className={style.listaTarefas}>
       <h2>Estudos do dia!</h2>
       <ul>
-        {assingments.map((item, index) => (
-          <ListItem key={index} {...item} />
+        {assignments.map((item) => (
+          <ListItem
+            getSelectedAssignment={getSelectedAssignment}
+            item={item}
+            key={item.id}
+            {...item}
+          />
         ))}
       </ul>
     </aside>

@@ -1,6 +1,6 @@
-export default interface IAssingment {
+export default interface IAssignment {
   id: string;
-  assingment: string;
+  assignment: string;
   duration: string;
   selected: boolean;
   completed: boolean;
