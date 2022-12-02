@@ -7,10 +7,10 @@ import style from "./app.module.scss";
 
 function App() {
   const [assignments, setAssignments] = useState<IAssingment[]>([]);
-  const [selected, setSelected] = useState<IAssingment>();
+  const [selectedItem, setSelectedItem] = useState<IAssingment>();
 
   function getSelectedAssignment(selectedAssignment: IAssingment) {
-    setSelected(selectedAssignment);
+    setSelectedItem(selectedAssignment);
     setAssignments((items) =>
       items.map((item) => ({
         ...item,
@@ -18,6 +18,25 @@ function App() {
       }))
     );
   }
+
+  function finishAssignment() {
+    if (selectedItem) {
+      setSelectedItem(undefined)
+      setAssignments((assignments) =>
+        assignments.map((assignment) => {
+          if (assignment.id === selectedItem.id) {
+            return {
+              ...assignment,
+              selected: false,
+              completed: true,
+            };
+          }
+          return assignment;
+        })
+      );
+    }
+  }
+
   return (
     <div className={style.appStyle}>
       <Form setAssignments={setAssignments} />
@@ -25,7 +44,7 @@ function App() {
         assignments={assignments}
         getSelectedAssignment={getSelectedAssignment}
       />
-      <Timer />
+      <Timer selectedItem={selectedItem} finishAssignment={finishAssignment} />
     </div>
   );
 }

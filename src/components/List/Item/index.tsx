@@ -1,5 +1,5 @@
 import IAssignment from "../../../types/IAssingment";
-import style from "../list.module.scss";
+import style from "./listItem.module.scss";
 
 interface Props {
   item: IAssignment;
@@ -9,9 +9,11 @@ interface Props {
 export default function ListItem({ item, getSelectedAssignment }: Props) {
   return (
     <li
-      className={`${style.item} ${item.selected ? style.itemSelecionado : null}`}
+      className={`${style.item} ${
+        item.selected ? style.itemSelecionado : null
+      } ${item.completed ? style.itemCompletado : null}`}
       onClick={() => {
-        getSelectedAssignment({
+        !item.completed && getSelectedAssignment({
           id: item.id,
           assignment: item.assignment,
           duration: item.duration,
@@ -22,6 +24,9 @@ export default function ListItem({ item, getSelectedAssignment }: Props) {
     >
       <h3>{item.assignment}</h3>
       <span>{item.duration}</span>
+      {item.completed && (
+        <span className={style.concluido} aria-label="Tarefa concluída."></span>
+      )}
     </li>
   );
 }
